@@ -1,0 +1,18 @@
+
+
+<div mat-dialog-content>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <mat-list *ngIf="!loading && sensorLoaded" role="list">
+    <mat-list-item role="listitem">Sensor name: {{sensorStatus.name}}</mat-list-item>
+    <mat-list-item role="listitem">IP Address {{sensorStatus.ip}}</mat-list-item>
+    <mat-list-item role="listitem">Topic: {{sensorStatus.topic}}</mat-list-item>
+    <mat-list-item role="listitem">Last Alive: {{sensorStatus.lastAlive}}</mat-list-item>
+    <mat-list-item role="listitem">Uptime: {{sensorStatus.uptimeInSeconds}} seconds</mat-list-item>
+    <mat-list-item role="listitem">
+      <img width = "50px" height="50px" [src]="imagePath" [alt]="imagePath" />
+    </mat-list-item>
+  </mat-list>
+
+  <div *ngIf="!loading && !sensorLoaded">Cos sie popsulo!</div>
+</div>

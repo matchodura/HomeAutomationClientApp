@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +13,20 @@ import { MatButtonModule} from  '@angular/material/button';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoggingComponent } from './logging/logging.component';
 import { RoomsComponent } from './rooms/rooms.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogLoggingComponent } from './dialog-logging/dialog-logging.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ChartModule } from 'primeng/chart';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoggingComponent,
-    RoomsComponent
+    RoomsComponent,
+    DialogLoggingComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +36,13 @@ import { RoomsComponent } from './rooms/rooms.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatButtonModule
+    MatButtonModule,
+    DragDropModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    HttpClientModule,
+    ChartModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [],

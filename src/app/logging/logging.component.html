@@ -1,1 +1,25 @@
-<p>logging works!</p>
+<div class="categories" cdkDropListGroup>
+ 	<ng-container *ngFor="let item of sensorNames;let i=index" >
+  
+		<div class="categories-item" cdkDropList  cdkDropListOrientation="horizontal"
+			[cdkDropListData]="{item:item,index:i}" (cdkDropListDropped)="drop($event)">
+			<div class="inner" cdkDrag>          
+        <div class="inner-row">
+          <button mat-button (click)="openDialog($event, item)">Click me</button>        
+          {{item}}
+          <div class="example-handle" cdkDragHandle>
+            <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+              <path d="M0 0h24v24H0z" fill="none"></path>
+            </svg>
+          </div>
+        </div>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading" class="inner-row">
+          <p-chart poistion="absolute" width="90%" height= "400px" type="line" [data]="multiAxisData[i]" [options]="multiAxisOptions"></p-chart>
+        </div>        
+			</div>
+		</div>
+	</ng-container>
+</div>
+
