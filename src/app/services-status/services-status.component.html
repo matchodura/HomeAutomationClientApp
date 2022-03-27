@@ -1,0 +1,25 @@
+<div class="container">   
+  <table class="table table-striped">  
+    <thead>  
+        <tr>  
+          <th>Name</th>  
+          <th>Status</th>  
+          <th>Logs</th>  
+        </tr>  
+    </thead>  
+    <tbody>  
+      <tr *ngFor="let service of services">  
+        <td>{{ service.name }}</td>  
+        <td>
+          <img width = "50px" height="50px" [src]="service.healthCheckIcon" [alt]="service.healthCheckIcon"/>
+        </td>
+        <td >
+          <a href='{{seqUrl}}#/events?filter=_service%3D%22{{service.seqName}}"' target="_blank"><img width = "50px" height="50px" [src]="seqIcon" [alt]="seqIcon"/></a>         
+        </td>
+      </tr>  
+    </tbody>  
+  </table>  
+</div>  
+
+
+  

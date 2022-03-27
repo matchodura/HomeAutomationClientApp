@@ -28,6 +28,7 @@ export class DialogLoggingComponent {
     uptimeInSeconds: 0
   };
 
+  
   async getSensorData(sensorName: string){
     await this.statusService.getStatusOfDevice<SensorStatus>(sensorName).then(res => {
       this.sensorStatus = res;

@@ -18,7 +18,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogLoggingComponent } from './dialog-logging/dialog-logging.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartModule } from 'primeng/chart';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StatusComponent } from './status/status.component';
+import { MatTableModule  } from '@angular/material/table';
+import { ServicesStatusComponent } from './services-status/services-status.component';
+
+import {MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     DashboardComponent,
     LoggingComponent,
     RoomsComponent,
-    DialogLoggingComponent
+    DialogLoggingComponent,
+    StatusComponent,
+    ServicesStatusComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,10 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatDialogModule,
     HttpClientModule,
     ChartModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule
 
   ],
   providers: [],

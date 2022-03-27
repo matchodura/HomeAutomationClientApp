@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {MatDialog, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogLoggingComponent } from '../dialog-logging/dialog-logging.component';
 import { LoggingServiceService } from '../services/logging/logging-service.service';
 import { SensorData } from '../interfaces/sensorData';
