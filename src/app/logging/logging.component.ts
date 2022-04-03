@@ -28,30 +28,17 @@ export class LoggingComponent implements OnInit {
       topic: '',
       ip: '',
       status: '',
+      lastCheck: new Date(),
       lastAlive: new Date(),
-      uptimeInSeconds: 0
+      uptimeInSeconds: 0,
+      wasOnline: false
   };
   
   constructor(public dialog: MatDialog, private loggingService: LoggingServiceService, private statusService: StatusServiceService) { }
 
-  // ngOnInit(): void {
-  //   this.loggingService.getLoggingDeviceList()
-  //   .subscribe((res: any) => this.sensorNames = res);
-
-
-  //   //TODO all sensor at once-think how to do this properly
-  //   //TO DO maybe a spinner
-  //     this.loggingService.getLoggingDeviceValues("czujnik_1").subscribe(res => console.log(res))
-
-    
-  //   //this.updateLocalStorage();
-    
-  // }
-
   drop(event: CdkDragDrop<any>) {
     this.sensorNames[event.previousContainer.data.index]=event.container.data.item
     this.sensorNames[event.container.data.index]=event.previousContainer.data.item
-    //this.updateLocalStorage();
   }
 
   async openDialog(event: any, sensorName: any) {
@@ -73,36 +60,19 @@ export class LoggingComponent implements OnInit {
         console.log("Dialog output:", data);
         });
     }
- 
-
-
-  //TODO update local storage correctly, think when to get sensors and when to update local storage
-  // updateLocalStorage(){
-
-  //   this.sensorNames = JSON.parse(localStorage.getItem("logging_charts") || '{}');
-    
-
-  //   localStorage.setItem("logging_charts", JSON.stringify(this.sensorNames)); //store sensors
-  //   console.log("sensor set!");
-  // }
 
     ngOnInit() {
-        this.getAvailableSensors();     
-
-        this.setupChartOptions();       
-
+        this.getAvailableSensors();  
+        this.setupChartOptions();   
     };
 
     getAvailableSensors(){
             this.loggingService.getLoggingDeviceList().subscribe((res: any) =>
             {
                 this.sensorNames = res;
-                res.forEach((element: string, index: any) => {
-                   
-                    // this.getData(element);     
+                res.forEach((element: string, index: any) => {                       
                     this.setupCharts(element);     
-                    console.log(element);               
-                     
+                    console.log(element);                                    
                 });         
             }
         );

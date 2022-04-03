@@ -26,6 +26,14 @@ import { ServicesStatusComponent } from './services-status/services-status.compo
 import {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+import { ToastrModule } from 'ngx-toastr';
+
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { SafeHtmlPipe } from './pipes/SafeHtml/safe-html.pipe';
+import { SvgloaderDirective } from './Directives/SVGLoaded/svgloader.directive';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +42,9 @@ import { MatInputModule } from '@angular/material/input';
     RoomsComponent,
     DialogLoggingComponent,
     StatusComponent,
-    ServicesStatusComponent
+    ServicesStatusComponent,
+    SafeHtmlPipe,
+    SvgloaderDirective
     
   ],
   imports: [
@@ -54,7 +64,10 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressSpinnerModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ToastrModule.forRoot(),
+    MatButtonToggleModule,
+    MatGridListModule
 
   ],
   providers: [],

@@ -1,13 +1,25 @@
-<div class="example-boundary">
-    <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box"  *ngFor="let item of items" cdkDrag>
-    {{item}}  
-    <div class="example-handle" cdkDragHandle>
-      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-        <path d="M0 0h24v24H0z" fill="none"></path>
-      </svg>
-    </div>
-  </div>  
-</div>
-</div>
+<!-- <mat-button-toggle-group #group="matButtonToggleGroup">
+  <mat-button-toggle value="raw_swift_msg" (change)="onValChange($event.value)" matTooltip="View Message">
+    <i class="fa fa-eye" style="color:#455A64" aria-hidden="true"></i>
+  </mat-button-toggle>
+  <mat-button-toggle (change)="onValChange($event.value)" value="message_comment" matTooltip="Message Comment" >
+    <i class="fa fa-comments" style="color:#455A64" aria-hidden="true"></i>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<img [src] = "imagePath">
+ -->
+
+ <mat-grid-list cols="5" rowHeight="50rem">
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+    <mat-button-toggle-group #group="matButtonToggleGroup" [vertical]="true" class="mat-elevation-z0">
+      <mat-button-toggle  *ngFor="let item of layouts" (click)="onValChange(item.id)">
+        {{ item.name}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'lightgreen'">
+    <div class="svg-wrapper" [innerHTML]="svgData | safeHtml"></div>    
+  </mat-grid-tile>
+
+</mat-grid-list>

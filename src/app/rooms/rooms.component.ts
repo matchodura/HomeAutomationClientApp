@@ -1,48 +1,153 @@
-import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { HomeControlService } from '../services/home-control/home-control.service';
+import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
+import { Layout } from '../interfaces/Layout';
+import { Room } from '../interfaces/Room';
+
+export interface Layouts {
+  id: number;
+  name: string;
+}
 
 @Component({
   selector: 'app-rooms',
   templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.css']
+  styleUrls: ['./rooms.component.css'],
+  encapsulation: ViewEncapsulation.None 
 })
+
 export class RoomsComponent implements OnInit {
+    
+  layouts: Layouts[] = [];
+  rooms: Room[] = [];
 
-  items = [
-    'Item 0',
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-    'Item 11',
-    'Item 12',
-    'Item 13'
-  ]
+  ids: any;
+  svgData:any;
 
+  level: number = 0;
+
+  constructor(private homeService: HomeControlService, private sanitizer: DomSanitizer) {}
+
+  ngOnInit(): void {     
+    this.getLayoutsNames();
+    this.getRoomData();    
+  }
+
+  getLayouts(level: number){this.homeService.getLayouts<Layout>(level).subscribe((res: any) => {
+      this.svgData = atob(res.image);
+    });
+  }
+
+  getRoomData(){this.homeService.getAllRooms<Room[]>().subscribe((res: any) => {   
+    this.rooms = res;
+   });
+  }
   
-  constructor() { }
-
-  ngOnInit(): void {
+  getLayoutsNames(){this.homeService.getLayoutNames().subscribe((res: any) => {
+    this.layouts = res;
+    });
   }
 
-  // drop(event: CdkDragDrop<string[]>) {
-  //   moveItemInArray(this.items, event.previousIndex, event.currentIndex);
-  //   console.log(this.items);
-  //   console.log(event.previousIndex);
+  populateRoomData(){
+    const svgns = "http://www.w3.org/2000/svg";
 
-  //   console.log(event.currentIndex);
-  // }
+    let roomsToPoll = this.rooms.filter(x=>x.level == this.level);
+    
+    console.log(roomsToPoll)
 
+    roomsToPoll.forEach(function(item){
+      var roomRectangle = document.getElementById(item.frontendID);
+      
+      let xDimensionOfParent = roomRectangle?.getAttribute('x');
+      let yDimensionOfParent = roomRectangle?.getAttribute('y');
+  
+      let dataX = Number(xDimensionOfParent) + 50;
+      let dataY = Number(yDimensionOfParent) + 25;
+  
+      let textDataX = Number(dataX) + 20;
+      let textDataY = Number(dataY) + 25;
 
-  drop(event: CdkDragDrop<any>) {
-    this.items[event.previousContainer.data.index]=event.container.data.item
-    this.items[event.container.data.index]=event.previousContainer.data.item
+      const dataRectangle = document.createElementNS(svgns, 'rect');      
+      dataRectangle.setAttribute("style", 'fill:white;stroke-width:3;stroke:rgb(0,0,0)')  
+      dataRectangle.setAttribute("width", '350')
+      dataRectangle.setAttribute("height", '150')    
+      dataRectangle.setAttribute("x", dataX.toString() )
+      dataRectangle.setAttribute("y", dataY.toString() )
+      roomRectangle?.after(dataRectangle)
+     
+
+      const textData = document.createElementNS(svgns, "text");
+      textData.setAttribute("style", 'fill:black;')  
+      textData.setAttribute("width", '200')
+      textData.setAttribute("height", '100')    
+      textData.setAttribute("font-family", "Verdana")
+      textData.setAttribute("font-size", "14")   
+      textData.setAttribute("x", textDataX.toString() )
+      textData.setAttribute("y", textDataY.toString() )
+      textData.innerHTML = "Room name: " + item.name;
+      dataRectangle?.after(textData);
+
+      const temperatureData = document.createElementNS(svgns, "text");
+      temperatureData.setAttribute("style", 'fill:black;')  
+      temperatureData.setAttribute("width", '200')
+      temperatureData.setAttribute("height", '100')    
+      temperatureData.setAttribute("font-family", "Verdana")
+      temperatureData.setAttribute("font-size", "14")   
+      temperatureData.setAttribute("x", (textDataX).toString() )
+      temperatureData.setAttribute("y", (textDataY + 20).toString() )
+      temperatureData.innerHTML = "Temperature: " + item.roomValue.temperature.toString()
+      textData?.after(temperatureData);
+
+      const humidityData = document.createElementNS(svgns, "text");
+      humidityData.setAttribute("style", 'fill:black;')  
+      humidityData.setAttribute("width", '200')
+      humidityData.setAttribute("height", '100')    
+      humidityData.setAttribute("font-family", "Verdana")
+      humidityData.setAttribute("font-size", "14")   
+      humidityData.setAttribute("x", (textDataX).toString() )
+      humidityData.setAttribute("y", (textDataY + 40).toString() )
+      humidityData.innerHTML = "Humidity: " + item.roomValue.humidity.toString()
+      temperatureData?.after(humidityData);
+
+      const topicData = document.createElementNS(svgns, "text");
+      topicData.setAttribute("style", 'fill:black;')  
+      topicData.setAttribute("width", '200')
+      topicData.setAttribute("height", '100')    
+      topicData.setAttribute("font-family", "Verdana")
+      topicData.setAttribute("font-size", "14")   
+      topicData.setAttribute("x", (textDataX).toString() )
+      topicData.setAttribute("y", (textDataY + 60).toString() )
+      topicData.innerHTML = "Topic: " + item.roomValue.topic.toString()
+      humidityData?.after(topicData);
+
+      const lastPolled = document.createElementNS(svgns, "text");
+      lastPolled.setAttribute("style", 'fill:black;')  
+      lastPolled.setAttribute("width", '200')
+      lastPolled.setAttribute("height", '100')    
+      lastPolled.setAttribute("font-family", "Verdana")
+      lastPolled.setAttribute("font-size", "14")   
+      lastPolled.setAttribute("x", (textDataX).toString() )
+      lastPolled.setAttribute("y", (textDataY + 80).toString() )
+      lastPolled.innerHTML = "LastPolled: " + item.roomValue.lastModified.toString()
+      topicData?.after(lastPolled);
+
+      const aliveDevices = document.createElementNS(svgns, "text");
+      aliveDevices.setAttribute("style", 'fill:black;')  
+      aliveDevices.setAttribute("width", '200')
+      aliveDevices.setAttribute("height", '100')    
+      aliveDevices.setAttribute("font-family", "Verdana")
+      aliveDevices.setAttribute("font-size", "14")   
+      aliveDevices.setAttribute("x", (textDataX).toString() )
+      aliveDevices.setAttribute("y", (textDataY + 100).toString() )
+      aliveDevices.innerHTML = "Alive Devices: " + item.aliveDevicesCount.toString()
+      lastPolled?.after(aliveDevices);
+
+    })
   }
 
+  onValChange(value: any){
+    this.level = value;
+    this.getLayouts(value);
+    this.populateRoomData();
+  }
 }

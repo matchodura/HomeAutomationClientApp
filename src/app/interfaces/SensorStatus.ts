@@ -3,6 +3,8 @@ export interface SensorStatus {
     topic: string;
     ip: string;  
     status: string;
+    lastCheck: Date;
     lastAlive: Date;
     uptimeInSeconds: number;
+    wasOnline: boolean;
   }

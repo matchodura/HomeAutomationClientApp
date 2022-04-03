@@ -20,27 +20,25 @@ export class LoggingServiceService {
   public getLoggingDeviceList() { 
    
     return this.http.get(Constants.LOGGING_API_ENDPOINT + 'devices'); 
-    } 
+  } 
 
   public getLoggingDeviceValues<SensorData>(sensor: string) { 
 
     const stringUrl ="sensorName="+ sensor +"&TimeFrom=" + this.timeFrom + "&TimeTo=" + this.timeTo;
-
     const options = { params: new HttpParams( {fromString: stringUrl}) };
 
-    return this.http.get<SensorData>(Constants.LOGGING_API_ENDPOINT + 'values', options);
-        
-    } 
+    return this.http.get<SensorData>(Constants.LOGGING_API_ENDPOINT + 'values', options);        
+  } 
 
-    healthCheck() {
-      return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(
-        map((resp: any) => {
-          if(resp.status !== 200){
-            throw resp;
-          }
-          return resp.status;
-        }),
-        repeatWhen(() => interval(5000))
-      );
-    }
+  healthCheck() {
+    return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(
+      map((resp: any) => {
+        if(resp.status !== 200){
+          throw resp;
+        }
+        return resp.status;
+      }),
+      repeatWhen(() => interval(5000))
+    );
+  }
 }

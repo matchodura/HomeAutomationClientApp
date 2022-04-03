@@ -24,8 +24,10 @@ export class DialogLoggingComponent {
     topic: '',
     ip: '',
     status: '',
+    lastCheck: new Date(),
     lastAlive: new Date(),
-    uptimeInSeconds: 0
+    uptimeInSeconds: 0,
+    wasOnline: false
   };
 
   
