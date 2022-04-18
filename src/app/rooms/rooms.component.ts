@@ -3,6 +3,11 @@ import { HomeControlService } from '../services/home-control/home-control.servic
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { Layout } from '../interfaces/Layout';
 import { Room } from '../interfaces/Room';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { RoomItem } from '../interfaces/RoomItem';
+import { SwitchControlDTO } from '../interfaces/SwitchControlDTO';
+
+
 
 export interface Layouts {
   id: number;
@@ -16,11 +21,13 @@ export interface Layouts {
   encapsulation: ViewEncapsulation.None 
 })
 
-export class RoomsComponent implements OnInit {
-    
+export class RoomsComponent implements OnInit {  
   layouts: Layouts[] = [];
   rooms: Room[] = [];
 
+  filteredRooms: Room[] = [];
+
+  switches : RoomItem[]= [];
   ids: any;
   svgData:any;
 
@@ -28,7 +35,7 @@ export class RoomsComponent implements OnInit {
 
   constructor(private homeService: HomeControlService, private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {     
+  ngOnInit(): void {
     this.getLayoutsNames();
     this.getRoomData();    
   }
@@ -39,7 +46,7 @@ export class RoomsComponent implements OnInit {
   }
 
   getRoomData(){this.homeService.getAllRooms<Room[]>().subscribe((res: any) => {   
-    this.rooms = res;
+    this.rooms = res;    
    });
   }
   
@@ -51,11 +58,11 @@ export class RoomsComponent implements OnInit {
   populateRoomData(){
     const svgns = "http://www.w3.org/2000/svg";
 
-    let roomsToPoll = this.rooms.filter(x=>x.level == this.level);
-    
-    console.log(roomsToPoll)
+    this.switches = [];
 
-    roomsToPoll.forEach(function(item){
+    this.filteredRooms = this.rooms.filter(x=>x.level == this.level);
+    
+    this.filteredRooms.forEach((item) =>{
       var roomRectangle = document.getElementById(item.frontendID);
       
       let xDimensionOfParent = roomRectangle?.getAttribute('x');
@@ -95,7 +102,7 @@ export class RoomsComponent implements OnInit {
       temperatureData.setAttribute("font-size", "14")   
       temperatureData.setAttribute("x", (textDataX).toString() )
       temperatureData.setAttribute("y", (textDataY + 20).toString() )
-      temperatureData.innerHTML = "Temperature: " + item.roomValue.temperature.toString()
+      temperatureData.innerHTML = "Temperature: " + item.roomValue?.temperature.toString()
       textData?.after(temperatureData);
 
       const humidityData = document.createElementNS(svgns, "text");
@@ -106,7 +113,7 @@ export class RoomsComponent implements OnInit {
       humidityData.setAttribute("font-size", "14")   
       humidityData.setAttribute("x", (textDataX).toString() )
       humidityData.setAttribute("y", (textDataY + 40).toString() )
-      humidityData.innerHTML = "Humidity: " + item.roomValue.humidity.toString()
+      humidityData.innerHTML = "Humidity: " + item.roomValue?.humidity.toString()
       temperatureData?.after(humidityData);
 
       const topicData = document.createElementNS(svgns, "text");
@@ -117,7 +124,7 @@ export class RoomsComponent implements OnInit {
       topicData.setAttribute("font-size", "14")   
       topicData.setAttribute("x", (textDataX).toString() )
       topicData.setAttribute("y", (textDataY + 60).toString() )
-      topicData.innerHTML = "Topic: " + item.roomValue.topic.toString()
+      topicData.innerHTML = "Topic: " + item.roomValue?.topic.toString()
       humidityData?.after(topicData);
 
       const lastPolled = document.createElementNS(svgns, "text");
@@ -128,7 +135,7 @@ export class RoomsComponent implements OnInit {
       lastPolled.setAttribute("font-size", "14")   
       lastPolled.setAttribute("x", (textDataX).toString() )
       lastPolled.setAttribute("y", (textDataY + 80).toString() )
-      lastPolled.innerHTML = "LastPolled: " + item.roomValue.lastModified.toString()
+      lastPolled.innerHTML = "LastPolled: " + item.roomValue?.lastModified.toString()
       topicData?.after(lastPolled);
 
       const aliveDevices = document.createElementNS(svgns, "text");
@@ -139,15 +146,64 @@ export class RoomsComponent implements OnInit {
       aliveDevices.setAttribute("font-size", "14")   
       aliveDevices.setAttribute("x", (textDataX).toString() )
       aliveDevices.setAttribute("y", (textDataY + 100).toString() )
-      aliveDevices.innerHTML = "Alive Devices: " + item.aliveDevicesCount.toString()
+      aliveDevices.innerHTML = "Alive Devices: " + item?.aliveDevicesCount.toString()
       lastPolled?.after(aliveDevices);
 
+
+    //find all rooms which have configured items/devices
+    let allSwitches = item.roomItem.filter(x => x.deviceType === 1);
+    console.log(allSwitches);
+
+
+     if(allSwitches.length> 0){
+       this.switches = allSwitches;
+       let rect = aliveDevices.getBoundingClientRect();
+
+       this.switches.forEach(function(roomItem){
+        if(rect.x != 0){
+          let switchToModify = document.getElementById("switch_"+ roomItem.name)    
+          switchToModify!.style.position = "absolute"
+          switchToModify!.style.left = rect.x+'px';
+          switchToModify!.style.top = rect.y+'px';
+          switchToModify!.style.zIndex = "2";
+
+     
+        }       
     })
+
   }
+
+     
+  
+  
+  })
+  
+  }
+
 
   onValChange(value: any){
     this.level = value;
     this.getLayouts(value);
     this.populateRoomData();
+  }
+
+  controlSwitch(value: any, device: any){
+
+    const control = new SwitchControlDTO();
+    
+    if(value.checked === true){
+
+      control.command = "ON"
+    }
+    else{
+      control.command = "OFF"
+    }
+
+    control.deviceName = device.name;
+
+
+    this.homeService.controlSwitch(control).subscribe((res: any) => {
+     
+    });
   }
 }

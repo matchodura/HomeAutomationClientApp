@@ -32,7 +32,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { SafeHtmlPipe } from './pipes/SafeHtml/safe-html.pipe';
 import { SvgloaderDirective } from './Directives/SVGLoaded/svgloader.directive';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import { SvgloaderDirective } from './Directives/SVGLoaded/svgloader.directive';
     MatInputModule,
     ToastrModule.forRoot(),
     MatButtonToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSlideToggleModule
 
   ],
   providers: [],

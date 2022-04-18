@@ -1,16 +1,4 @@
-<!-- <mat-button-toggle-group #group="matButtonToggleGroup">
-  <mat-button-toggle value="raw_swift_msg" (change)="onValChange($event.value)" matTooltip="View Message">
-    <i class="fa fa-eye" style="color:#455A64" aria-hidden="true"></i>
-  </mat-button-toggle>
-  <mat-button-toggle (change)="onValChange($event.value)" value="message_comment" matTooltip="Message Comment" >
-    <i class="fa fa-comments" style="color:#455A64" aria-hidden="true"></i>
-  </mat-button-toggle>
-</mat-button-toggle-group>
-<img [src] = "imagePath">
- -->
-
  <mat-grid-list cols="5" rowHeight="50rem">
-
   <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
     <mat-button-toggle-group #group="matButtonToggleGroup" [vertical]="true" class="mat-elevation-z0">
       <mat-button-toggle  *ngFor="let item of layouts" (click)="onValChange(item.id)">
@@ -19,7 +7,12 @@
     </mat-button-toggle-group>
   </mat-grid-tile>
   <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'lightgreen'">
-    <div class="svg-wrapper" [innerHTML]="svgData | safeHtml"></div>    
+    <div class="svg-wrapper" [innerHTML]="svgData | safeHtml"></div>   
+
+      <mat-slide-toggle *ngFor="let switch of switches let i = index" id = "switch_{{switch.name}}" (change)="controlSwitch($event, switch)">
+          {{switch.name}}
+      </mat-slide-toggle>
+
   </mat-grid-tile>
 
 </mat-grid-list>

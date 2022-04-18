@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { interval } from 'rxjs';
 import { map, repeatWhen } from 'rxjs/operators';
 import { Constants } from 'src/app/config/constants';
+import { SwitchControlDTO } from 'src/app/interfaces/SwitchControlDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,13 @@ export class HomeControlService {
       return this.http.get(Constants.HOME_CONTROL_API_ENDPOINT + 'names');          
     } 
 
-
-
   public getAllRooms<Room>() {   
     return this.http.get<Room[]>(Constants.HOME_CONTROL_API_ENDPOINT + 'all');          
+  }   
+
+  public controlSwitch(value: SwitchControlDTO ) {   
+    console.log('request sent:', value);
+    return this.http.post(Constants.HOME_CONTROL_API_ROOM_ENDPOINT + 'control-switch', value);          
   }   
 
   healthCheck() {

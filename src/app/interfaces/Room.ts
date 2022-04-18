@@ -1,3 +1,5 @@
+import { RoomItem } from "./RoomItem";
+
 export interface Room{
     frontendID: string;
     level: number;
@@ -8,5 +10,7 @@ export interface Room{
       humidity: number,
       topic: string,
       lastModified: Date
-    }
+    },
+    roomItem: RoomItem[];
   }
+
