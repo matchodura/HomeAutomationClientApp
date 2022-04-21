@@ -9,6 +9,7 @@ public static HOME_CONTROL_API_ROOM_ENDPOINT: string = 'https://localhost:9053/a
 public static STATUS_API_HEALTH: string = 'https://localhost:7053/health'; 
 public static LOGGING_API_HEALTH: string = 'https://localhost:5001/health'; 
 public static HOME_CONTROL_API_HEALTH: string = 'https://localhost:9053/health'; 
+public static HARDWARE_STATUS_API_HEALTH: string = 'https://localhost:10001/health'; 
 
 public static STATUS_SIGNALR_ENDPOINT: string = 'https://localhost:7053/'; 
 

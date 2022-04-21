@@ -5,6 +5,7 @@ import { StatusServiceService } from '../services/status/status-service.service'
 import { map, tap, catchError, retryWhen, delay } from 'rxjs/operators';
 import { LoggingServiceService } from '../services/logging/logging-service.service';
 import { HomeControlService } from '../services/home-control/home-control.service';
+import { HardwareStatusService } from '../services/hardware-status/hardwarestatus.service';
 
 
 @Component({
@@ -39,9 +40,16 @@ export class ServicesStatusComponent implements OnInit {
     seqName: "homecontrol-api",
     healthCheckIcon: this.nokMarkPath
   },
+  {
+    name: "hardware-status-api",
+    url: "https://localhost:10001/health",
+    seqName: "hardware-status-api",
+    healthCheckIcon: this.nokMarkPath
+  }
 ]
   
-  constructor(private statusServce: StatusServiceService, private loggingService: LoggingServiceService, private homeControl: HomeControlService) { }
+  constructor(private statusServce: StatusServiceService, private loggingService: LoggingServiceService, private homeControl: HomeControlService,
+    private hardwareStatus: HardwareStatusService) { }
 
   ngOnInit(): void {
 
@@ -76,6 +84,19 @@ export class ServicesStatusComponent implements OnInit {
         },
         (error) => {         
           this.services[2].healthCheckIcon = this.nokMarkPath;
+        }
+      ),
+      retryWhen(errors => errors.pipe(delay(5000)))
+    ).subscribe();
+
+
+    this.hardwareStatus.healthCheck().pipe(
+      tap(
+        (data) => {      
+          this.services[3].healthCheckIcon = this.okMarkPath;
+        },
+        (error) => {         
+          this.services[3].healthCheckIcon = this.nokMarkPath;
         }
       ),
       retryWhen(errors => errors.pipe(delay(5000)))
