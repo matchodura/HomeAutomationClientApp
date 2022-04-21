@@ -3,7 +3,6 @@ import { HomeControlService } from '../services/home-control/home-control.servic
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { Layout } from '../interfaces/Layout';
 import { Room } from '../interfaces/Room';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { RoomItem } from '../interfaces/RoomItem';
 import { SwitchControlDTO } from '../interfaces/SwitchControlDTO';
 

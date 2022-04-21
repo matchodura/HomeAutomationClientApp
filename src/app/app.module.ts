@@ -33,6 +33,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { SafeHtmlPipe } from './pipes/SafeHtml/safe-html.pipe';
 import { SvgloaderDirective } from './Directives/SVGLoaded/svgloader.directive';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { NetworkDevicesComponent } from './network-devices/network-devices.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     StatusComponent,
     ServicesStatusComponent,
     SafeHtmlPipe,
-    SvgloaderDirective
+    SvgloaderDirective,
+    NetworkDevicesComponent
     
   ],
   imports: [
