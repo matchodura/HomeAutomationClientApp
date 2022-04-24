@@ -4,8 +4,6 @@ import { SignalRService } from '../services/signal-r/signal-r.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { SensorStatus } from '../interfaces/SensorStatus';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-status',

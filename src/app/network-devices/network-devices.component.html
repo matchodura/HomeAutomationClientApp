@@ -1,1 +1,65 @@
-<p>network-devices works!</p>
+<mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. pocophone" #input>
+  </mat-form-field>
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+   
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+   
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <td mat-cell *matCellDef="let element"> {{element.deviceType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hostname">
+      <th mat-header-cell *matHeaderCellDef> Hostname </th>
+      <td mat-cell *matCellDef="let element"> {{element.hostName}} </td>
+    </ng-container>
+   
+    <ng-container matColumnDef="ip">
+      <th mat-header-cell *matHeaderCellDef> IP </th>
+      <td mat-cell *matCellDef="let element"> {{element.ip}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="mac">
+      <th mat-header-cell *matHeaderCellDef> MAC </th>
+      <td mat-cell *matCellDef="let element"> {{element.mac}} </td>
+    </ng-container>
+   
+    <ng-container matColumnDef="dateadded">
+      <th mat-header-cell *matHeaderCellDef> Date Added </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateAdded | date: 'medium' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastcheck">
+      <th mat-header-cell *matHeaderCellDef> Last Check </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastCheck | date: 'medium' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="devicestatus">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> 
+        <div *ngIf="element.status ==='Alive'; else elseBlock">
+          <img width = "50px" height="50px" [src]="okMarkPath" [alt]="okMarkPath"/>
+        </div>
+        <ng-template #elseBlock>
+          <img width = "50px" height="50px" [src]="nokMarkPath" [alt]="nokMarkPath"/>
+        </ng-template>
+         </td>
+    </ng-container>
+   
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>

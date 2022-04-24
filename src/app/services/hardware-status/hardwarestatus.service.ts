@@ -13,6 +13,11 @@ export class HardwareStatusService {
   
   constructor(private http: HttpClient) { }
 
+
+  
+
+
+
   healthCheck() {
     return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(
       map((resp: any) => {
