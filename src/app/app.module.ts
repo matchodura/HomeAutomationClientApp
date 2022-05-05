@@ -22,7 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StatusComponent } from './status/status.component';
 import { MatTableModule  } from '@angular/material/table';
 import { ServicesStatusComponent } from './services-status/services-status.component';
-
+import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -34,6 +34,12 @@ import { SafeHtmlPipe } from './pipes/SafeHtml/safe-html.pipe';
 import { SvgloaderDirective } from './Directives/SVGLoaded/svgloader.directive';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { NetworkDevicesComponent } from './network-devices/network-devices.component';
+import { DialogEditingComponent } from './dialog-editing/dialog-editing.component';
+import {MatSelectModule} from '@angular/material/select';
+
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +52,8 @@ import { NetworkDevicesComponent } from './network-devices/network-devices.compo
     ServicesStatusComponent,
     SafeHtmlPipe,
     SvgloaderDirective,
-    NetworkDevicesComponent
+    NetworkDevicesComponent,
+    DialogEditingComponent
     
   ],
   imports: [
@@ -70,10 +77,19 @@ import { NetworkDevicesComponent } from './network-devices/network-devices.compo
     ToastrModule.forRoot(),
     MatButtonToggleModule,
     MatGridListModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSelectModule,
+    FormsModule,
+    FontAwesomeModule
 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor() {
+
+    
+  }
+}

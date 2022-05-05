@@ -1,0 +1,27 @@
+<div mat-dialog-content>  
+    <mat-list  role="list">
+      <mat-list-item role="listitem">Device name: {{device.hostName}}</mat-list-item>
+      <!-- <mat-list-item role="listitem">IP Address {{sensorStatus.ip}}</mat-list-item>
+      <mat-list-item role="listitem">Topic: {{sensorStatus.topic}}</mat-list-item>
+      <mat-list-item role="listitem">Last Alive: {{sensorStatus.lastAlive}}</mat-list-item>
+      <mat-list-item role="listitem">Uptime: {{sensorStatus.uptimeInSeconds}} seconds</mat-list-item>
+      <mat-list-item role="listitem">
+        <img width = "50px" height="50px" [src]="imagePath" [alt]="imagePath" />
+      </mat-list-item> -->
+    </mat-list> 
+
+    <mat-form-field appearance="fill">
+      <mat-label>Input</mat-label>
+      <input matInput [placeholder]="device.hostName" [(ngModel)]="newNameOfDevice">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select (selectionChange)="doSomething($event.value)">
+          <mat-option *ngFor="let key of keys" [value]="key">
+              {{types[key]}}
+          </mat-option>        
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" (click)="saveDevice($event, device)"> Save changes</button>  
+  </div>

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Constants } from 'src/app/config/constants';
 import { interval } from 'rxjs';
 import { map, repeatWhen } from 'rxjs/operators';
+import { HardwareDevice } from 'src/app/interfaces/Hardware/HardwareDevice';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,21 @@ export class HardwareStatusService {
   constructor(private http: HttpClient) { }
 
 
-  
+  public refreshAllDevicesInNetwork() { 
+    return this.http.get<any>(Constants.HARDWARE_API_ENDPOINT + 'refresh-devices');        
+  } 
 
+  public updateDevice(device: HardwareDevice){
 
+    const body = device;
+    console.log("body to send", body);
+    return this.http.put<any>(Constants.HARDWARE_API_ENDPOINT + 'update-device', body)
+        .subscribe();
+  }
+
+  public getAllDevices() { 
+    return this.http.get<any>(Constants.HARDWARE_API_ENDPOINT + 'all');        
+  } 
 
   healthCheck() {
     return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(
