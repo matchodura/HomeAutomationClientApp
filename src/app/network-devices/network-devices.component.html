@@ -78,7 +78,8 @@
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element"> 
         <button mat-raised-button color="accent" (click)="editDevice($event, element)"> Edit Device</button>  
-      </td>     
+        <button mat-raised-button color="primary" (click)="refreshDevice($event, element)"> Refresh Device</button>  
+      </td>   
     </ng-container>
 
 

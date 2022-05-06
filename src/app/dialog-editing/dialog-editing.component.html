@@ -18,6 +18,7 @@
         <mat-label>Select</mat-label>
         <mat-select (selectionChange)="doSomething($event.value)">
           <mat-option *ngFor="let key of keys" [value]="key">
+          
               {{types[key]}}
           </mat-option>        
         </mat-select>

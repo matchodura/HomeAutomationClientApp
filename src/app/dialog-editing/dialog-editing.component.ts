@@ -19,9 +19,9 @@ export class DialogEditingComponent implements OnInit {
   newNameOfDevice: string="";
 
   constructor(@Inject(MAT_DIALOG_DATA) public device: HardwareDevice, public dialog: MatDialogRef<DialogEditingComponent>,) {
-
+    
     this.keys = Object.keys(this.types).filter(Number);
-
+    console.log(this.keys)
   }
 
   ngOnInit(): void {

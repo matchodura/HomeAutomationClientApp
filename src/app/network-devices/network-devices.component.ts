@@ -6,7 +6,7 @@ import { HardwareStatusService } from '../services/hardware-status/hardwarestatu
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogEditingComponent } from '../dialog-editing/dialog-editing.component';
 import { HardwareDevice, HardwareType } from '../interfaces/Hardware/HardwareDevice';
-import { faTv, faDesktop, faMobile, faNetworkWired, faQuestion, faWifi, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faTv, faDesktop, faMobile, faNetworkWired, faQuestion, faBlender, IconDefinition, faLightbulb, faChartLine} from '@fortawesome/free-solid-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 
@@ -19,10 +19,12 @@ export class NetworkDevicesComponent implements OnInit {
 
   computerIcon = faDesktop;
   smartphoneIcon = faMobile;
-  homeApplianceIcon = faTv;
-  iotIcon = faWifi;
+  homeApplianceIcon = faBlender;
+  sensorIcon = faChartLine;
   networkingIcon = faNetworkWired;
   unknownIcon = faQuestion;
+  tvIcon = faTv;
+  lampIcon = faLightbulb;
 
   constructor(public signalRService: HardwareStatusSignalRService, private http: HttpClientModule, private hardwareStatusService: HardwareStatusService,
     public dialog: MatDialog, ) {    
@@ -75,9 +77,12 @@ public refreshIcons(data:any){
   [HardwareType.Computer, this.computerIcon],
   [HardwareType.Smartphone, this.smartphoneIcon],
   [HardwareType.HomeAppliance, this.homeApplianceIcon],
-  [HardwareType.IoT, this.iotIcon],
+  [HardwareType.Sensor, this.sensorIcon],
+  [HardwareType.Lamp, this.lampIcon],
   [HardwareType.Networking, this.networkingIcon],
-  [HardwareType.Unknown, this.unknownIcon]]
+  [HardwareType.Unknown, this.unknownIcon],
+  [HardwareType.TV, this.tvIcon],
+]
 
  )   
 
@@ -133,6 +138,11 @@ totalScan(event: any){
          
     });
 
+}
+
+async refreshDevice(event: any, device: any) {
+  console.log("refreshing device")
+      this.hardwareStatusService.refreshDevice(device);
 }
 
 
