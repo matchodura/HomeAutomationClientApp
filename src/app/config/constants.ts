@@ -23,4 +23,6 @@ public static HARDWARE_API_ENDPOINT: string = 'https://localhost:44370/api/v1/Ha
 public static HARDWARE_STATUS_SIGNALR_ENDPOINT: string = 'https://localhost:44370/'; 
 
 public static SEQ_URL: string = 'http://192.168.0.185:5341/'; 
+
+public static WEATHER_API_KEY = "";
 } 

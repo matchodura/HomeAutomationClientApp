@@ -142,9 +142,7 @@ totalScan(event: any){
 
 async refreshDevice(event: any, device: any) {
   console.log("refreshing device")
-      this.hardwareStatusService.refreshDevice(device);
-}
-
-
+      this.hardwareStatusService.refreshDevice(device);}
+    
 
 }

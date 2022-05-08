@@ -1,0 +1,25 @@
+<div class="weather-container">
+    <div class="weather-card-current">
+        <div>
+            <img [src]="imagePath"> 
+            <p>{{currentWeather.weather[0].description}}</p>
+        </div>
+        <div>
+            <h1>T: {{currentWeather.temp}} C</h1>
+            <h1>H: {{currentWeather.humidity}} %</h1>
+            <h1>P: {{currentWeather.pressure}} hPa</h1>
+        </div>    
+    </div>
+    <div class="weather-card-daily">
+    <div *ngFor="let day of dailyWeather; let i = index">
+        <p>{{dayNames[i]}}</p>
+        <img class="small-img" [src]="dailyImagePaths[i]"> 
+        <p>{{day.temp.day}} C</p>
+        <p>{{day.humidity}} %</p>
+        <p>{{day.pressure}} hPa</p>
+    </div>
+    
+    </div>
+</div>
+
+

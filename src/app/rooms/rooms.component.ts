@@ -32,6 +32,8 @@ export class RoomsComponent implements OnInit {
 
   level: number = 0;
 
+  viewMode: boolean = true; //default layout
+
   constructor(private homeService: HomeControlService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
@@ -60,6 +62,7 @@ export class RoomsComponent implements OnInit {
     this.switches = [];
 
     this.filteredRooms = this.rooms.filter(x=>x.level == this.level);
+    this.filteredRooms.sort((a,b)=> Number(a.frontendID.slice(a.frontendID.length - 1))  - Number(b.frontendID.slice(b.frontendID.length - 1)))
     
     this.filteredRooms.forEach((item) =>{
       var roomRectangle = document.getElementById(item.frontendID);
@@ -185,6 +188,20 @@ export class RoomsComponent implements OnInit {
     this.getLayouts(value);
     this.populateRoomData();
   }
+
+
+  setViewMode(value: any){
+
+    if(value === "card"){
+      this.viewMode = false;
+    }
+    else{
+      this.viewMode = true;
+    }
+    console.log("current view mode:", this.viewMode)
+  }
+
+
 
   controlSwitch(value: any, device: any){
 

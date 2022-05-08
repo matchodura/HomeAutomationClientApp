@@ -39,7 +39,8 @@ import {MatSelectModule} from '@angular/material/select';
 
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import {MatCardModule} from '@angular/material/card';
+import { WeatherStatusComponent } from './weather-status/weather-status.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SafeHtmlPipe,
     SvgloaderDirective,
     NetworkDevicesComponent,
-    DialogEditingComponent
+    DialogEditingComponent,
+    WeatherStatusComponent
     
   ],
   imports: [
@@ -80,7 +82,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatSlideToggleModule,
     MatSelectModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatCardModule
 
   ],
   providers: [],

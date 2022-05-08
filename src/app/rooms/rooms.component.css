@@ -10,3 +10,30 @@
 rect:hover{
   fill: black !important;
 }
+
+
+.main-container{
+  display:flex;
+  min-width:100%;
+  min-height:100%;
+}
+
+.status-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.rooms-container{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.room-card{
+  border-radius: 25px;
+  width: 250px;
+  height: 350px;
+  background-color:white;
+  margin: 10px 10px 10px 10px;
+}
+

@@ -1,0 +1,29 @@
+.weather-card-current{
+    min-width: 100%;
+    height: 150px;
+    background-color:white;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.weather-card-daily{
+    min-width: 100%;
+    height: 150px;
+    background-color:white;
+    display: flex;
+    flex-direction: row;
+}
+
+.weather-container{
+    display: flex;
+    flex-direction: column;
+}
+
+p{
+    font-size: 12px;
+}
+
+.small-img{
+    height: 25px;
+    width: 25px;
+}

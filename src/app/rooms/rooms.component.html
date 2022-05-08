@@ -1,18 +1,50 @@
- <mat-grid-list cols="5" rowHeight="50rem">
-  <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+ <mat-grid-list cols="5" rows = "4" rowHeight="17rem" colWidth="25rem">
+  <mat-grid-tile id="viewChange" [colspan]="1" [rowspan]="1" [style.background]="'lightblue'">
+    <mat-button-toggle-group #group="matButtonToggleGroup" class="mat-elevation-z0" value="default">
+      <mat-button-toggle value="default" (click)="setViewMode('layout')">Layout</mat-button-toggle>
+      <mat-button-toggle (click)="setViewMode('card')">Card</mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-grid-tile>
+  <mat-grid-tile id ="statusCards" [colspan]="1" [rowspan]="3" [style.background]="'lightblue'">
+    <div class="status-container">
+       <app-weather-status></app-weather-status>
+      <div class="status-card">
+        <iframe id="Example"
+            title="Example"
+            height="400"
+            width="100%"
+            src="http://www.radareu.cz/">
+        </iframe>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile id="layoutView" [colspan]="3" [rowspan]="3" [style.background]="'lightgreen'">
+    <ng-container *ngIf="viewMode">
+      <div class="svg-wrapper" [innerHTML]="svgData | safeHtml"></div> 
+      <mat-slide-toggle *ngFor="let switch of switches let i = index" id = "switch_{{switch.name}}" (change)="controlSwitch($event, switch)">
+          {{switch.name}}
+      </mat-slide-toggle>
+    </ng-container>
+
+  <ng-container *ngIf="!viewMode">
+    <div class="main-container">
+      <div class="rooms-container">
+        <div class="room-card"  *ngFor="let room of filteredRooms; let i = index">
+          <p>Room name: {{room.name}}</p>
+          <p>Temperature: {{room.roomValue?.temperature}}</p>
+          <p>Humidity: {{room.roomValue?.humidity}}</p>
+          </div>
+
+      </div>           
+    </div>
+  </ng-container>
+    
+  </mat-grid-tile>
+  <mat-grid-tile id="layoutChange" [colspan]="1" [rowspan]="2" [style.background]="'lightblue'">
     <mat-button-toggle-group #group="matButtonToggleGroup" [vertical]="true" class="mat-elevation-z0">
       <mat-button-toggle  *ngFor="let item of layouts" (click)="onValChange(item.id)">
         {{ item.name}}
       </mat-button-toggle>
     </mat-button-toggle-group>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="'lightgreen'">
-    <div class="svg-wrapper" [innerHTML]="svgData | safeHtml"></div>   
-
-      <mat-slide-toggle *ngFor="let switch of switches let i = index" id = "switch_{{switch.name}}" (change)="controlSwitch($event, switch)">
-          {{switch.name}}
-      </mat-slide-toggle>
-
-  </mat-grid-tile>
-
 </mat-grid-list>

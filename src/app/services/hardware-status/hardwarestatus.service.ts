@@ -31,8 +31,8 @@ export class HardwareStatusService {
 
     const body = device;
 
-    return this.http.post<any>(Constants.HARDWARE_API_ENDPOINT + 'refresh-device', body)
-        .subscribe();
+    return this.http.post<any>(Constants.HARDWARE_API_ENDPOINT + 'refresh-device', body);
+        
   }
 
   public getAllDevices() { 
