@@ -29,11 +29,17 @@
   <ng-container *ngIf="!viewMode">
     <div class="main-container">
       <div class="rooms-container">
-        <div class="room-card"  *ngFor="let room of filteredRooms; let i = index">
-          <p>Room name: {{room.name}}</p>
-          <p>Temperature: {{room.roomValue?.temperature}}</p>
-          <p>Humidity: {{room.roomValue?.humidity}}</p>
+        <div class="room-card"  *ngFor="let cardRoom of cardRooms; let i = index">
+          <p>Room name: {{cardRoom.name}}</p>
+          <p>Temperature: {{cardRoom.roomValue?.temperature}}</p>
+          <p>Humidity: {{cardRoom.roomValue?.humidity}}</p>
+          <div *ngFor="let item of cardRoom.roomItem let i = index">
+            <mat-slide-toggle [disabled]="item.status == 'Dead'" *ngIf="item.deviceType === 1" id = "switch_{{item.name}}" (change)="controlSwitch($event, item)">
+              {{item.name}}
+            </mat-slide-toggle>          
+              <fa-icon *ngIf="item.status == 'Dead' && item.deviceType === 1" [icon] = "icon" title="This device is currently offline"></fa-icon>      
           </div>
+        </div>
 
       </div>           
     </div>

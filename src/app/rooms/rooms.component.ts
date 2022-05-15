@@ -5,6 +5,8 @@ import { Layout } from '../interfaces/Layout';
 import { Room } from '../interfaces/Room';
 import { RoomItem } from '../interfaces/RoomItem';
 import { SwitchControlDTO } from '../interfaces/SwitchControlDTO';
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -23,10 +25,13 @@ export interface Layouts {
 export class RoomsComponent implements OnInit {  
   layouts: Layouts[] = [];
   rooms: Room[] = [];
+  cardRooms : Room[] = [];
 
   filteredRooms: Room[] = [];
 
   switches : RoomItem[]= [];
+  roomSwitches : RoomItem[]= [];
+  icon = faExclamationCircle;
   ids: any;
   svgData:any;
 
@@ -56,15 +61,16 @@ export class RoomsComponent implements OnInit {
     });
   }
 
+
+
   populateRoomData(){
     const svgns = "http://www.w3.org/2000/svg";
 
     this.switches = [];
 
     this.filteredRooms = this.rooms.filter(x=>x.level == this.level);
-    this.filteredRooms.sort((a,b)=> Number(a.frontendID.slice(a.frontendID.length - 1))  - Number(b.frontendID.slice(b.frontendID.length - 1)))
     
-    this.filteredRooms.forEach((item) =>{
+    this.filteredRooms.forEach((item) => {
       var roomRectangle = document.getElementById(item.frontendID);
       
       let xDimensionOfParent = roomRectangle?.getAttribute('x');
@@ -173,20 +179,23 @@ export class RoomsComponent implements OnInit {
         }       
     })
 
-  }
-
-     
-  
-  
+  }  
   })
   
   }
+
+  populateCardRoomData(){
+    this.cardRooms = this.rooms.filter(x=>x.level == this.level);
+    this.cardRooms.sort((a,b)=> Number(a.frontendID.slice(a.frontendID.length - 1))  - Number(b.frontendID.slice(b.frontendID.length - 1)));  
+  }
+
 
 
   onValChange(value: any){
     this.level = value;
     this.getLayouts(value);
     this.populateRoomData();
+    this.populateCardRoomData();
   }
 
 
