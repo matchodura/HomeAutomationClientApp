@@ -20,11 +20,11 @@ export class StatusComponent implements OnInit {
   nokMarkPath = './assets/icons/x_mark.png';
   unknownMarkPath = './assets/icons/unknown.png';
   devices: SensorStatus[] = [];
-
+  tasmotaIcon = './assets/icons/tasmota.png';
 
   dataSource = new MatTableDataSource<any>();  
  
-  displayedColumns: string[] = ['name', 'topic', 'ip', 'status','lastCheck', 'lastAlive', 'uptimeInSeconds', 'moreInfo'];
+  displayedColumns: string[] = ['name', 'topic', 'ip', 'status','lastCheck', 'lastAlive', 'uptimeInSeconds', 'link', 'moreInfo'];
 
   ngOnInit() {
     this.signalRService.startConnection();

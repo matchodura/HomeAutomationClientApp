@@ -1,0 +1,79 @@
+<button mat-raised-button color="information" (click)="findNewDevices($event)" [disabled] = "loading">Find new devices
+    <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
+    </mat-spinner></mat-icon>  
+</button>
+<div class="container">   
+    <table class="table table-striped">  
+      <thead>  
+          <tr>  
+            <th>IP</th>  
+            <th>MAC</th>  
+            <th>HostName</th>  
+            <th>TimeOfScan</th>  
+            <th>Actions</th>  
+          </tr>  
+      </thead>  
+      <tbody>  
+        <tr *ngFor="let device of foundDevices">  
+         <td>{{ device.ip }}</td>  
+         <td>{{ device.mac }}</td>  
+         <td>{{ device.hostName }}</td>  
+         <td>{{ device.timeOfScan }}</td>  
+         <td>
+             <button mat-raised-button color="information" (click)="addNewDevice($event, device)">
+                <fa-icon [icon] = "addIcon">
+
+                </fa-icon> 
+            </button>
+         </td>  
+
+
+        </tr> 
+      </tbody>  
+    </table>  
+    <div *ngIf="addDevice">
+        <mat-list  role="list">
+            <mat-list-item role="listitem">Device name: {{foundDevice.hostName}}</mat-list-item>
+          </mat-list> 
+      
+          <mat-form-field appearance="fill">
+            <mat-label>IP</mat-label>
+            <input matInput [placeholder]="foundDevice.ip" [(ngModel)]="foundDevice.ip">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>MAC</mat-label>
+            <input matInput [placeholder]="foundDevice.mac" [(ngModel)]="foundDevice.mac">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Hostname</mat-label>
+            <input matInput [placeholder]="foundDevice.hostName" [(ngModel)]="foundDevice.hostName">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Select</mat-label>
+              <mat-select (selectionChange)="doSomething($event.value)">
+                <mat-option *ngFor="let key of keys" [value]="key">
+                
+                    {{types[key]}}
+                </mat-option>        
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput [placeholder]="deviceToAdd.name" [(ngModel)]="deviceToAdd.name">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Topic</mat-label>
+                <input matInput [placeholder]="deviceToAdd.topic" [(ngModel)]="deviceToAdd.topic">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Mosquitto Username</mat-label>
+                <input matInput [placeholder]="deviceToAdd.mosquittoUsername" [(ngModel)]="deviceToAdd.mosquittoUsername">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Mosquitto Password</mat-label>
+                <input matInput [placeholder]="deviceToAdd.mosquittoPassword" [(ngModel)]="deviceToAdd.mosquittoPassword">
+              </mat-form-field>
+            <button mat-raised-button color="accent" (click)="saveDevice($event)"> Save changes</button>  
+    </div>
+  </div>  
+  

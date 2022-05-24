@@ -1,6 +1,6 @@
-enum DeviceType {
+export enum DeviceType {
   Sensor,
-  Socket,
+  Switch,
   Lamp,
   Unknown
 }

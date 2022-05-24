@@ -42,6 +42,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatCardModule} from '@angular/material/card';
 import { WeatherStatusComponent } from './weather-status/weather-status.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { SchedulesComponent } from './schedules/schedules.component';
+import { DialogAddMqttComponent } from './dialog-add-mqtt/dialog-add-mqtt.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     NetworkDevicesComponent,
     DialogEditingComponent,
     WeatherStatusComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    SchedulesComponent,
+    DialogAddMqttComponent
     
   ],
   imports: [

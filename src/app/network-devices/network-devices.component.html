@@ -8,7 +8,9 @@
       <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
       </mat-spinner></mat-icon>
     </button>
-
+    <button mat-raised-button color="information" (click)="findNewDevices($event)" [disabled] = "loading">Find new devices
+  
+    </button>
   </div>
 </section>
 <mat-divider></mat-divider>

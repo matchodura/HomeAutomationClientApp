@@ -23,8 +23,7 @@ export class HardwareStatusService {
 
     const body = device;
     console.log("body to send", body);
-    return this.http.put<any>(Constants.HARDWARE_API_ENDPOINT + 'update-device', body)
-        .subscribe();
+    return this.http.put<any>(Constants.HARDWARE_API_ENDPOINT + 'update-device', body).subscribe();
   }
 
   public refreshDevice(device: HardwareDevice){
@@ -38,6 +37,12 @@ export class HardwareStatusService {
   public getAllDevices() { 
     return this.http.get<any>(Constants.HARDWARE_API_ENDPOINT + 'all');        
   } 
+
+
+  public findNewDevices(){
+    return this.http.get<any>(Constants.HARDWARE_API_ENDPOINT + 'find-new-devices');      
+  }
+
 
   healthCheck() {
     return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(

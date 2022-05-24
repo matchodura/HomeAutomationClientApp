@@ -110,7 +110,9 @@ totalScan(event: any){
   });
   }
   
-
+  findNewDevices(event: any){
+  
+  }
 
   async editDevice(event: any, device: any) {
     console.log(event.target.getBoundingClientRect());

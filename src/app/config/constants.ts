@@ -6,7 +6,7 @@ public static LOGGING_API_ENDPOINT: string = 'https://localhost:5001/api/v1/Logg
 public static STATUS_API_ENDPOINT: string = 'https://localhost:7053/api/v1/Status/'; 
 public static HOME_CONTROL_API_ENDPOINT: string = 'https://localhost:9053/api/v1/Room/'; 
 public static HOME_CONTROL_API_ROOM_ENDPOINT: string = 'https://localhost:9053/api/v1/Item/'; 
-public static HARDWARE_API_ENDPOINT: string = 'https://localhost:10001/api/v1/HardwareStatus/'; 
+// public static HARDWARE_API_ENDPOINT: string = 'https://localhost:10001/api/v1/HardwareStatus/'; 
 
 
 public static STATUS_API_HEALTH: string = 'https://localhost:7053/health'; 
@@ -19,7 +19,8 @@ public static HARDWARE_STATUS_SIGNALR_ENDPOINT: string = 'https://localhost:1000
 
 
 //IIS endpoints
-// public static HARDWARE_API_ENDPOINT: string = 'https://localhost:44370/api/v1/HardwareStatus/'; 
+public static HARDWARE_API_ENDPOINT: string = 'https://localhost:44370/api/v1/HardwareStatus/'; 
+// public static STATUS_API_ENDPOINT: string = 'https://localhost:44317/api/v1/Status/'; 
 // public static HARDWARE_STATUS_SIGNALR_ENDPOINT: string = 'https://localhost:44370/'; 
 
 public static SEQ_URL: string = 'http://192.168.0.185:5341/'; 

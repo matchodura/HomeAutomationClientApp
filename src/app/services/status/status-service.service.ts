@@ -4,6 +4,7 @@ import { Constants } from 'src/app/config/constants';
 import { HttpParams } from "@angular/common/http";
 import { map, catchError, repeatWhen } from 'rxjs/operators';
 import { interval } from 'rxjs';
+import { MQTTDevice } from 'src/app/interfaces/Hardware/MQTTDevice';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,15 @@ export class StatusServiceService {
     });        
     } 
     
+
+    public async addMqttDevice(device: MQTTDevice){
+
+      const body = device;
+
+      return this.http.post<any>(Constants.STATUS_API_ENDPOINT+'add-device', body).subscribe();    
+    }
+
+
     healthCheck() {
       return this.http.get<any>(this.healthCheckAPI, {responseType: 'text' as 'json', observe: 'response'}).pipe(
         map((resp: any) => {

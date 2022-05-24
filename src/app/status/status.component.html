@@ -53,6 +53,13 @@
       <td mat-cell *matCellDef="let element"> {{element.uptimeInSeconds}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef> Link </th>
+      <td mat-cell *matCellDef="let element"><a href='http://{{element.ip}}' target="_blank"><img width = "50px" height="50px" [src]="tasmotaIcon" [alt]="tasmotaIcon"/></a>  </td>
+          
+
+    </ng-container>
+
     <ng-container matColumnDef="moreInfo">
       <th mat-header-cell *matHeaderCellDef> More </th>
       <td mat-cell *matCellDef="let element"> TBD </td>
